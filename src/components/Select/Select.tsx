@@ -1,24 +1,31 @@
 import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectFilter, setFilter } from '../../features/news/newsSlice';
+import {
+  selectFilter,
+  setFilter,
+} from '../../features/persisted/persistedSlice';
 import classes from './Select.module.css';
 
 interface SelectOption {
   name: string;
+  value: string;
   img: any;
 }
 
 const options = [
   {
-    name: 'angular',
+    name: 'Angular',
+    value: 'angular',
     img: require('../../img/angular.png'),
   },
   {
-    name: 'react',
+    name: 'React',
+    value: 'reactjs',
     img: require('../../img/react.png'),
   },
   {
-    name: 'vue',
+    name: 'Vuejs',
+    value: 'vuejs',
     img: require('../../img/vue.png'),
   },
 ];
