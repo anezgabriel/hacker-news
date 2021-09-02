@@ -1,7 +1,13 @@
+import classes from './AllPosts.module.css';
+import Select from '../../components/Select/Select';
+
 const AllPosts = () => {
   return (
-    <div>
-      <h1>All Posts</h1>
+    <div className={classes.container}>
+      <Select />
+      <div className={classes.content}>
+        <div>All Posts</div>
+      </div>
     </div>
   );
 };

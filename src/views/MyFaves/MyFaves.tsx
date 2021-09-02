@@ -1,7 +1,9 @@
-const MyFaves = () => {
+import classes from './MyFaves.module.css';
+
+const MyFaves: React.FC = () => {
   return (
-    <div>
-      <h1>My faves</h1>
+    <div className={classes.container}>
+      <div>My faves</div>
     </div>
   );
 };
