@@ -1,0 +1,18 @@
+.header {
+  box-shadow: 0 1px 4px 0 rgba(0, 21, 41, 0.12);
+  background: linear-gradient(to bottom, #ececec -32%, #fff 124%);
+  min-height: 114px;
+  display: flex;
+  align-items: center;
+}
+
+.header > div {
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 991px) {
+  .header > div {
+    justify-content: flex-start;
+  }
+}
