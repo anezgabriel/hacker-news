@@ -1,6 +1,6 @@
 import classes from './Header.module.css';
-import headerLogo from '../../../img/hacker-news.png';
-import Layout from '../../layout/Layout';
+import headerLogo from '../../img/hacker-news.png';
+import Layout from '../layout/Layout';
 
 const Header: React.FC = () => {
   return (

@@ -3,10 +3,12 @@ import { RootState } from '../../app/store';
 
 export interface NewsState {
   data: any[];
+  toggle: string;
 }
 
 const initialState: NewsState = {
   data: [],
+  toggle: 'All',
 };
 
 export const newsSlice = createSlice({
@@ -14,11 +16,15 @@ export const newsSlice = createSlice({
   initialState,
   reducers: {
     // add reducers here
+    changeToggle: (state, action) => {
+      state.toggle = action.payload;
+    },
   },
 });
 
-// export const { } = newsSlice.actions;
+export const { changeToggle } = newsSlice.actions;
 
 export const selectNews = (state: RootState) => state.news.data;
+export const selectToggle = (state: RootState) => state.news.toggle;
 
 export default newsSlice.reducer;
