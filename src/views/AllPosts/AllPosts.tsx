@@ -1,27 +1,28 @@
-import { useEffect } from 'react';
 import classes from './AllPosts.module.css';
 import Select from '../../components/Select/Select';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { fetchData, selectNews } from '../../features/news/newsSlice';
+import { useAppSelector } from '../../app/hooks';
+import { selectLoading, selectNews } from '../../features/news/newsSlice';
 import PostsGrid from '../../components/PostsGrid/PostsGrid';
-
-const defaultParams = {
-  query: 'angular',
-  page: 0,
-};
+import { selectFilter } from '../../features/persisted/persistedSlice';
+import Loader from '../../components/Loader/Loader';
 
 const AllPosts = () => {
-  const dispatch = useAppDispatch();
+  const loading = useAppSelector(selectLoading);
   const news = useAppSelector(selectNews);
-
-  useEffect(() => {
-    dispatch(fetchData(defaultParams));
-  }, [dispatch]);
+  const filter = useAppSelector(selectFilter);
 
   return (
     <div className={classes.container}>
       <Select />
-      <div className={classes.content}>{news && <PostsGrid data={news} />}</div>
+      <div className={classes.content}>
+        {loading && <Loader />}
+        {!loading && !filter.name && news.length === 0 && (
+          <div className={classes.message}>
+            <h1>Select your news</h1>
+          </div>
+        )}
+        {!loading && filter && news && <PostsGrid data={news} />}
+      </div>
     </div>
   );
 };

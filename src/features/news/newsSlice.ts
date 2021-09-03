@@ -12,6 +12,7 @@ export interface NewsState {
   toggle: string;
   loading: boolean;
   error: boolean;
+  page: number;
 }
 
 const initialState: NewsState = {
@@ -19,6 +20,7 @@ const initialState: NewsState = {
   toggle: 'All',
   loading: false,
   error: false,
+  page: 1,
 };
 
 export const fetchData = createAsyncThunk(
@@ -27,7 +29,7 @@ export const fetchData = createAsyncThunk(
     const { query, page } = searchParams;
     try {
       const response = await axios.get(
-        `https://hn.algolia.com/api/v1/search_by_date?query=${query}&page=${page}`
+        `https://hn.algolia.com/api/v1/search_by_date?hitsPerPage=30&query=${query}&page=${page}`
       );
       return filterPosts(response.data.hits);
     } catch (error) {
@@ -49,9 +51,9 @@ export const newsSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchData.fulfilled, (state, action) => {
-      const news = [...state.data, ...action.payload];
+      // const news = [...state.data, ...action.payload];
       state.loading = false;
-      state.data = news;
+      state.data = action.payload;
     });
     builder.addCase(fetchData.rejected, (state, action) => {
       state.loading = false;
@@ -66,5 +68,6 @@ export const selectNews = (state: RootState) => state.news.data;
 export const selectToggle = (state: RootState) => state.news.toggle;
 export const selectLoading = (state: RootState) => state.news.loading;
 export const selectError = (state: RootState) => state.news.error;
+export const selectPage = (state: RootState) => state.news.page;
 
 export default newsSlice.reducer;
