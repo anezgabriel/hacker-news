@@ -1,18 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from './PostCard.module.css';
 import { Post } from '../../app/types';
 import { formatDate } from '../../app/helpers';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import {
+  addFavorite,
+  removeFavorite,
+  selectFavorites,
+} from '../../features/persisted/persistedSlice';
 
 interface PostCardProps {
   post: Post;
 }
 
-const isFavorite = false;
-
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
+  const dispatch = useAppDispatch();
+  const favorites = useAppSelector(selectFavorites);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    if (favorites && favorites.length > 0) {
+      const found = favorites.find((el) => el.created_at === post.created_at);
+      found ? setIsFavorite(true) : setIsFavorite(false);
+    }
+  }, [favorites, post]);
+
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    console.log('click');
+    if (isFavorite) {
+      dispatch(removeFavorite(post));
+    } else {
+      dispatch(addFavorite(post));
+    }
   };
 
   return (
