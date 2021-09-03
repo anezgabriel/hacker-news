@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { fetchData, selectPage } from '../../features/news/newsSlice';
 import {
   selectFilter,
   setFilter,
@@ -33,7 +32,6 @@ const options = [
 
 const Select = () => {
   const filter = useAppSelector(selectFilter);
-  const page = useAppSelector(selectPage);
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLDivElement>(null);
   const [open, setIsOpen] = useState(false);
@@ -55,13 +53,6 @@ const Select = () => {
   useEffect(() => {
     setIsOpen(false);
   }, [filter]);
-
-  useEffect(() => {
-    if (filter && filter.name) {
-      const params = { query: filter.name, page };
-      dispatch(fetchData(params));
-    }
-  }, [page, filter, dispatch]);
 
   const handleClick = () => {
     setIsOpen((prevState) => !prevState);
