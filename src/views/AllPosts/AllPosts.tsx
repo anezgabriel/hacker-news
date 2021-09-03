@@ -1,16 +1,18 @@
 import { useEffect } from 'react';
 import classes from './AllPosts.module.css';
 import Select from '../../components/Select/Select';
-import { useAppDispatch } from '../../app/hooks';
-import { fetchData } from '../../features/news/newsSlice';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { fetchData, selectNews } from '../../features/news/newsSlice';
+import PostsGrid from '../../components/PostsGrid/PostsGrid';
 
 const defaultParams = {
-  query: '',
+  query: 'angular',
   page: 0,
 };
 
 const AllPosts = () => {
   const dispatch = useAppDispatch();
+  const news = useAppSelector(selectNews);
 
   useEffect(() => {
     dispatch(fetchData(defaultParams));
@@ -19,9 +21,7 @@ const AllPosts = () => {
   return (
     <div className={classes.container}>
       <Select />
-      <div className={classes.content}>
-        <div>All Posts</div>
-      </div>
+      <div className={classes.content}>{news && <PostsGrid data={news} />}</div>
     </div>
   );
 };

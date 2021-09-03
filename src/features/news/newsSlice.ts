@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import axios from 'axios';
+import { filterPosts } from '../../app/helpers';
 
 interface searchParams {
   query: string;
@@ -26,9 +27,9 @@ export const fetchData = createAsyncThunk(
     const { query, page } = searchParams;
     try {
       const response = await axios.get(
-        `https://hn.algolia.com/api/v1/search_by_date?hitsPerPage=8&query=${query}&page=${page}`
+        `https://hn.algolia.com/api/v1/search_by_date?query=${query}&page=${page}`
       );
-      return response.data.hits;
+      return filterPosts(response.data.hits);
     } catch (error) {
       console.log(error);
     }
