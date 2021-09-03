@@ -1,4 +1,6 @@
 import { Post } from '../app/types';
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en';
 
 export const filterPosts = (posts: any) => {
   console.log('posts', posts);
@@ -14,4 +16,11 @@ export const filterPosts = (posts: any) => {
   }
 
   return filteredPosts;
+};
+
+TimeAgo.addDefaultLocale(en);
+const timeAgo = new TimeAgo('en-US');
+
+export const formatDate = (date: Date) => {
+  return timeAgo.format(date);
 };

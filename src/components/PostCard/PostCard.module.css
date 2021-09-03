@@ -1,0 +1,57 @@
+.card-wrapper {
+  width: 100%;
+  max-width: 550px;
+  background-color: #fff;
+  height: 90px;
+  padding: 0;
+  border: solid 1px #979797;
+  border-radius: 6px;
+}
+
+.card-wrapper > a {
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.43;
+  letter-spacing: 0.25px;
+  color: #6b6b6b;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 7px;
+}
+
+.info {
+  flex: 1;
+  padding: 16px 16px 14px 26px;
+}
+
+.posted {
+  font-size: 11px;
+  color: #767676;
+  margin-left: 8px;
+}
+
+.favorite {
+  display: flex;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex: 0 0 68px;
+  background-color: rgba(96, 96, 96, 0.06);
+  border: none;
+}

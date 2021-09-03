@@ -9,11 +9,11 @@ interface PostsGridProps {
 
 const PostsGrid: React.FC<PostsGridProps> = ({ data }) => {
   return (
-    <div className={classes.container}>
+    <ul className={classes.container}>
       {data.map((post) => (
         <PostCard key={post.created_at} post={post} />
       ))}
-    </div>
+    </ul>
   );
 };
 
