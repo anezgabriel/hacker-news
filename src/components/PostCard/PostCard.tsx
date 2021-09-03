@@ -22,6 +22,8 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
     if (favorites && favorites.length > 0) {
       const found = favorites.find((el) => el.created_at === post.created_at);
       found ? setIsFavorite(true) : setIsFavorite(false);
+    } else {
+      setIsFavorite(false);
     }
   }, [favorites, post]);
 
