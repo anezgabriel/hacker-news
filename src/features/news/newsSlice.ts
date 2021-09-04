@@ -5,7 +5,7 @@ import { filterPosts } from '../../app/helpers';
 
 interface searchParams {
   query: string;
-  page: number;
+  page?: number;
 }
 export interface NewsState {
   data: any[];
@@ -26,10 +26,15 @@ const initialState: NewsState = {
 export const fetchData = createAsyncThunk(
   'news/fetchData',
   async (searchParams: searchParams) => {
-    const { query, page } = searchParams;
+    let page = 1;
+
+    if (searchParams.page) {
+      page = searchParams.page;
+    }
+
     try {
       const response = await axios.get(
-        `https://hn.algolia.com/api/v1/search_by_date?hitsPerPage=30&query=${query}&page=${page}`
+        `https://hn.algolia.com/api/v1/search_by_date?hitsPerPage=30&query=${searchParams.query}&page=${page}`
       );
       return filterPosts(response.data.hits);
     } catch (error) {
@@ -45,15 +50,21 @@ export const newsSlice = createSlice({
     changeToggle: (state, action) => {
       state.toggle = action.payload;
     },
+    clearData: (state) => {
+      state.data = [];
+    },
+    increasePage: (state) => {
+      state.page++;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchData.pending, (state, action) => {
       state.loading = true;
     });
     builder.addCase(fetchData.fulfilled, (state, action) => {
-      // const news = [...state.data, ...action.payload];
+      const news = [...state.data, ...action.payload];
       state.loading = false;
-      state.data = action.payload;
+      state.data = news;
     });
     builder.addCase(fetchData.rejected, (state, action) => {
       state.loading = false;
@@ -62,7 +73,7 @@ export const newsSlice = createSlice({
   },
 });
 
-export const { changeToggle } = newsSlice.actions;
+export const { changeToggle, clearData, increasePage } = newsSlice.actions;
 
 export const selectNews = (state: RootState) => state.news.data;
 export const selectToggle = (state: RootState) => state.news.toggle;
