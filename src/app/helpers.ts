@@ -23,3 +23,9 @@ const timeAgo = new TimeAgo('en-US');
 export const formatDate = (date: Date) => {
   return timeAgo.format(date);
 };
+
+export const paginateFavorites = (favorites: Post[], page: number) => {
+  const startIndex = page * 8;
+  const endIndex = startIndex + 8;
+  return favorites.slice(startIndex, endIndex);
+};

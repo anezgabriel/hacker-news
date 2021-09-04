@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import classes from './AllPosts.module.css';
 import Select from '../../components/Select/Select';
 import { useAppSelector } from '../../app/hooks';
@@ -10,6 +11,20 @@ const AllPosts = () => {
   const loading = useAppSelector(selectLoading);
   const news = useAppSelector(selectNews);
   const filter = useAppSelector(selectFilter);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  function handleScroll() {
+    if (
+      window.innerHeight + document.documentElement.scrollTop !==
+      document.documentElement.offsetHeight
+    )
+      return;
+    console.log('Fetch more posts from api!');
+  }
 
   return (
     <div className={classes.container}>

@@ -1,8 +1,16 @@
 .container {
   margin-top: 137px;
+  padding-bottom: 102px;
 }
 
 .message {
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.scroll {
   min-height: 200px;
   display: flex;
   justify-content: center;
