@@ -53,7 +53,7 @@ const AllPosts = () => {
         {filter && news && <PostsGrid data={news} />}
 
         {loading && <Loader />}
-        {!loading && (
+        {!loading && filter && filter.name && (
           <div className={classes.scroll}>
             <h1>Scroll down to load more</h1>
           </div>
